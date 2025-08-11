@@ -5,8 +5,6 @@
 
 This project provides a comprehensive solution to analyze corporate legal documents in Microsoft Word format (`.docx`), with a focus on verifying compliance with ADGM (Abu Dhabi Global Market) regulations. It automates the identification of document types, checks for mandatory incorporation documents, detects legal red flags, and annotates the documents with comments highlighting issues. The system offers an interactive web interface built with Gradio for easy document upload, analysis, and report generation.
 
----
-
 ## Features
 
 - **Document Type Identification:** Automatically classifies uploaded `.docx` files according to legal document types relevant to company incorporation.
@@ -16,8 +14,6 @@ This project provides a comprehensive solution to analyze corporate legal docume
 - **Detailed Reporting:** Generates structured JSON reports and markdown summaries outlining findings, severity levels, and recommendations.
 - **Downloadable Outputs:** Provides reviewed documents in a ZIP archive and the JSON analysis report for download.
 - **Interactive Web UI:** Enables users to upload multiple documents and view instant compliance feedback through an easy-to-use Gradio interface.
-
----
 
 ## Components
 
@@ -56,8 +52,6 @@ This project provides a comprehensive solution to analyze corporate legal docume
 - Provides download links for reviewed documents (ZIP) and analysis reports (JSON).
 - Designed for quick, interactive feedback on legal document compliance.
 
----
-
 ## Installation and Requirements
 
 - Python 3.7 or higher
@@ -67,7 +61,4 @@ This project provides a comprehensive solution to analyze corporate legal docume
   - Other dependencies: `io`, `os`, `json`, `tempfile`, `zipfile`, `re`
 
 Install dependencies with pip:
-
-```bash
-pip install python-docx gradio
 
