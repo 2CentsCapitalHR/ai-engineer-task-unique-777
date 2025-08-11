@@ -62,3 +62,4 @@ This project provides a comprehensive solution to analyze corporate legal docume
 
 Install dependencies with pip:
 
+<img src="" width="400">
