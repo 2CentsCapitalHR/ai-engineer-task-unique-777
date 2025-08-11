@@ -62,4 +62,6 @@ This project provides a comprehensive solution to analyze corporate legal docume
 
 Install dependencies with pip:
 
-<img src="" width="400">
+<img src="https://github.com/2CentsCapitalHR/ai-engineer-task-unique-777/blob/main/Screenshot%20from%202025-08-11%2018-47-24.png" width="400">
+<img src="https://github.com/2CentsCapitalHR/ai-engineer-task-unique-777/blob/main/Screenshot%20from%202025-08-11%2018-47-35.png" width="400">
+<img src="https://github.com/2CentsCapitalHR/ai-engineer-task-unique-777/blob/main/Screenshot%20from%202025-08-11%2018-47-52.png" width="400">
