@@ -1,38 +1,73 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/vgbm4cZ0)
-# Section Heading Finder for Word Documents
+# ADGM-Compliant Corporate Agent - Document Review Tool
 
 ## Overview
-This Python function helps identify the relevant section heading in a Word document (`.docx`) where a specific keyword or exact text appears. It is useful for parsing structured documents like contracts, reports, or manuals to locate contextual headings.
+
+This project provides a comprehensive solution to analyze corporate legal documents in Microsoft Word format (`.docx`), with a focus on verifying compliance with ADGM (Abu Dhabi Global Market) regulations. It automates the identification of document types, checks for mandatory incorporation documents, detects legal red flags, and annotates the documents with comments highlighting issues. The system offers an interactive web interface built with Gradio for easy document upload, analysis, and report generation.
+
+---
 
 ## Features
-- Detects section headings using both paragraph styles (e.g., Word's built-in Heading styles) and regex patterns matching common heading formats.
-- Supports multiple heading formats including numbered sections, clauses, Roman numerals, uppercase titles, and sub-headings.
-- Finds the closest preceding heading to the paragraph containing the keyword or matched text.
-- Returns meaningful fallback messages if no match or heading is found.
 
-## How It Works
-1. Extract all potential section headings from the document using regex patterns and heading styles.
-2. Search paragraphs for the given `match_text` or fallback `keyword`.
-3. From the found paragraph, move upward to find the nearest preceding heading.
-4. Return the heading text or a default message if none found.
+- **Document Type Identification:** Automatically classifies uploaded `.docx` files according to legal document types relevant to company incorporation.
+- **Mandatory Document Checklist:** Checks uploaded documents against a predefined list of mandatory company incorporation documents and reports missing items.
+- **Red Flag Detection:** Scans document contents to identify compliance risks and ambiguous clauses using predefined keywords and contextual analysis.
+- **In-Document Commenting:** Inserts detailed, color-coded comments directly into the Word documents near the relevant paragraphs to highlight detected issues.
+- **Detailed Reporting:** Generates structured JSON reports and markdown summaries outlining findings, severity levels, and recommendations.
+- **Downloadable Outputs:** Provides reviewed documents in a ZIP archive and the JSON analysis report for download.
+- **Interactive Web UI:** Enables users to upload multiple documents and view instant compliance feedback through an easy-to-use Gradio interface.
 
-## Usage
-- Requires the `python-docx` library to read `.docx` files.
-- Call `find_section_for_keyword(doc, keyword, match_text)` with a loaded document and search terms.
-- Example:
-  ```python
-  import docx
-  doc = docx.Document("document.docx")
-  section = find_section_for_keyword(doc, keyword="Confidentiality", match_text="")
-  print(section)
-2.insert_comments_in_docx Function:
-This function inserts review comments into a DOCX document based on a list of issues by locating matching paragraphs through keywords or context. It appends formatted, colored comment text to the appropriate paragraphs, avoiding headings when possible. The updated document is saved into a BytesIO object and returned for further use. The function handles errors gracefully and ensures no duplicate comments are added.
+---
 
-3.Mandatory Documents List
-Defines a dictionary MANDATORY_DOCS mapping the key "Company Incorporation" to a list of essential documents required for company formation. These include foundational legal and administrative documents such as Articles of Association, Memorandum of Association, and various resolution templates. This structured list can be used for validation, checklist generation, or document management in corporate workflows.
+## Components
 
-4..analyze_documents Function:
-This function processes uploaded .docx files to identify document types, check mandatory documents for company incorporation, detect legal red flags, and generate detailed issue reports. It returns markdown summaries, structured JSON data, and prepares reviewed documents zipped for download. The function handles errors gracefully, skips unreadable files, and annotates documents with comments on detected issues. Temporary files for ZIP and JSON outputs are created and returned for downstream use.
+### 1. Document Analysis (`analyze_documents` function)
 
-5.Gradio UI for Document Review:
-This Gradio interface allows users to upload multiple .docx legal documents for compliance analysis. Upon clicking "Analyze Documents," it calls the analyze_documents function and displays a checklist summary, per-file detailed markdown, and a structured JSON report. Users can download reviewed documents as a ZIP file and the full analysis report as a JSON file. The interface is designed for easy, interactive feedback on uploaded corporate legal documents.
+- Accepts a list of uploaded `.docx` file paths.
+- Reads each document into memory and extracts text.
+- Identifies document types using text matching and scoring mechanisms.
+- Validates presence of mandatory documents for company incorporation.
+- Performs detailed red flag detection by analyzing clause content.
+- Inserts review comments into documents at relevant locations.
+- Compiles per-file and aggregate markdown summaries.
+- Creates a ZIP file of annotated documents and a JSON report summarizing all findings.
+- Returns markdown outputs, structured data, and file paths for downloads.
+
+### 2. Comment Insertion (`insert_comments_in_docx` function)
+
+- Receives a document in-memory and a list of issues to comment on.
+- Locates paragraphs matching issue context or keywords.
+- Inserts formatted, italicized, red-colored comment text adjacent to relevant paragraphs.
+- Avoids commenting on section headers directly by targeting the following paragraph where appropriate.
+- Saves the modified document to a `BytesIO` stream for further processing.
+
+### 3. Section Heading Detection (`find_section_for_keyword` function)
+
+- Scans `.docx` paragraphs for potential section headings using both Word heading styles and regex patterns matching legal numbering schemes.
+- Finds the closest preceding heading for a given keyword or text snippet.
+- Supports detection of headings formatted as numbered sections, clauses, Roman numerals, and uppercase titles.
+- Returns meaningful fallback messages if no heading is found.
+
+### 4. Web Interface (Gradio UI)
+
+- Allows multiple `.docx` file uploads.
+- Triggers document analysis on button click.
+- Displays compliance checklist, per-file detailed summaries, and structured JSON reports inline.
+- Provides download links for reviewed documents (ZIP) and analysis reports (JSON).
+- Designed for quick, interactive feedback on legal document compliance.
+
+---
+
+## Installation and Requirements
+
+- Python 3.7 or higher
+- Required Python packages:
+  - `python-docx`
+  - `gradio`
+  - Other dependencies: `io`, `os`, `json`, `tempfile`, `zipfile`, `re`
+
+Install dependencies with pip:
+
+```bash
+pip install python-docx gradio
+
